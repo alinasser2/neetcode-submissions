@@ -1,0 +1,27 @@
+class Solution {
+    /**
+     * @param {number[]} numbers
+     * @param {number} target
+     * @return {number[]}
+     */
+    twoSum(numbers, target) 
+    {
+        let p1 = 0
+        let p2 = numbers.length-1
+        while(p1 < p2)
+        {
+            if (target < numbers[p1] + numbers[p2])
+            {
+                p2--
+            }
+            else if(target > numbers[p1] + numbers[p2])
+            {
+                p1++
+            }
+            else 
+            {
+                return [p1+1, p2+1]
+            }
+        }
+    }
+}
