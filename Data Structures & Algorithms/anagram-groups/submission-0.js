@@ -5,23 +5,16 @@ class Solution {
      */
     groupAnagrams(strs) 
     {
-        let result = [];
-        for(let str of strs)
+        let map  = new Map();
+        
+        if (strs.length == 0) return []
+        if (strs.length == 1) return [strs[0]]
+        for (let word of strs)
         {
-            let sortedStr = str.split('').sort().join('')
-            console.log(sortedStr)
-            if (result[sortedStr])
-            {
-                result[sortedStr].push(str)
-            console.log('here1', str)
-            }
-            else
-            {
-                result[sortedStr] = []
-                result[sortedStr].push(str)
-            }
-            console.log('result is : ', result)
+            let sortedWord = word.split('').sort().join('')
+            if (map.has(sortedWord)) map.set(sortedWord,[...map.get(sortedWord), word])
+            else map.set(sortedWord,[word])
         }
-        return Object.values(result)
+        return [...map.values()];
     }
 }
