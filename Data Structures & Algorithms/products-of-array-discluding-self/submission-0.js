@@ -5,33 +5,38 @@ class Solution {
      */
     productExceptSelf(nums) 
     {
-        // let prodNums = []
-        // let grandProd = 1;
-        // for(let i = 0; i < nums.length; i++)
-        // {
-        //     grandProd *= nums[i]
-        // }
-
-        // for(let i = 0; i < nums.length; i++)
-        // {
-        //     if(nums[i] !== 0)prodNums[i] = grandProd/ nums[i]
-        //     else prodNums[i] = grandProd
-        // }
-
-        // return prodNums
-
-
-        let res = []
-        for(let i = 0; i < nums.length; i++)
+        let prefix = []
+        let suffex = []
+        let result = []
+        for (let i = 0; i < nums.length; i++)
         {
-            let prod = 1
-            for (let j = 0; j < nums.length; j++)
-            {
-                if(j !== i) prod *= nums[j]
-            }
-            res[i] = prod
-            prod = 1
+            let prev = i == 0 ? 1 : prefix[i-1]
+            prefix[i] = nums[i] * prev
         }
-        return res
+
+        // console.log('prefix is : ', prefix)
+
+        for (let i = nums.length -1 ; i >= 0 ; i--)
+        {
+            let next = i == nums.length - 1 ? 1 : suffex[i+1]
+            suffex[i] =  nums[i] * next
+        }
+
+        for (let i = 0; i < nums.length; i++)
+        {
+            // suffex i + 1
+            // prefix i - 1
+            let prevProd = i-1 < 0 ? 1 : prefix[i-1]
+            let nextProd = i+1 > nums.length-1 ? 1 : suffex[i+1]
+            result.push(prevProd * nextProd)
+        }
+        return result
+
+
     }
 }
+
+
+//[1,2,4,6]
+// prefix [1,2,8,48]
+// suffex [48,48,24,6]
